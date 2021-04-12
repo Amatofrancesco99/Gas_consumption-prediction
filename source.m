@@ -87,7 +87,7 @@ grid on
 title ('GAS CONSUMPTION IN ITALY (3D), in function of day of a Year and day of a week -- Year 2');
 xlabel('DayOfTheYear');
 ylabel('DayOfTheWeek');
-zlabel('GasConsumption -- Year 2');
+zlabel('GasConsumption');
 
 
 %% CONCLUSION
