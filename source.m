@@ -41,10 +41,18 @@ xlabel('Days of Year 2');
 ylabel('Consumption (millionM^3)');
 grid on
 
-% OBSERVATION:
+% FIRST OBSERVATIONS:
 % From the diagrams we can already notice that the gas consumption decreases 
 % in the hottest months of the year, more specifically in the days that go 
-% from the 120th (April) to the 290th (September)
+% from the 120th (April) to the 290th (September).
+
+% WHY THIS HAPPENS (QUITE OBVIOUS)? 
+% Natural gas consumption has two seasonal peaks, largely reflecting
+% weather-related fluctuations in energy demand. 
+% In the winter months, cold weather leads to more demand for heating in 
+% the residential and commercial sectors. 
+% In the summer months, warm weather leads to more demand for air conditioning 
+% and, in turn, more demand for electricity.
 
 
 %% CONCLUSION
