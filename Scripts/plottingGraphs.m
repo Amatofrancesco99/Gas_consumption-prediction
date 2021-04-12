@@ -71,3 +71,10 @@ title ('GAS CONSUMPTION IN ITALY (3D), in function of day of a Year and day of a
 xlabel('DayOfTheYear');
 ylabel('DayOfTheWeek');
 zlabel('GasConsumption');
+
+
+% Stopping code to show only the plotting graphs
+pause
+% Close all the figure shown before
+close all;
+clc;
