@@ -1,3 +1,8 @@
+%% AIM OF THIS CODE: 
+% Identify an annual profile model for the long-term forecast of the
+% time series.
+
+
 %% ANNOTATION ON THE CODE
 
 
