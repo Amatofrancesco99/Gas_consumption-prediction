@@ -316,7 +316,7 @@ title ('GAS CONSUMPTION IN ITALY (3D), in function of day of a Year and day of a
 xlabel('DayOfTheYear');
 ylabel('DayOfTheWeek');
 zlabel('GasConsumption');
-%Plotting dei dati di validazione
+%Plotting validation data
 hold on
 plot3(dsYear2.DayOfTheYear,dsYear2.DayOfTheWeek,dsYear2.GasConsumption,'r+');
 legend('identification data','validation data','Location','Northeast'); 
@@ -363,6 +363,25 @@ SSR4Val=epsilon4Val'*epsilon4Val;
 % model that minimizes the SSR (Ssrval) between the data provided by the model and
 % those that are the new data, that is those of validation.
 % In this case, with cross-validation, the best model is the third degree one.
+
+
+% Show best model for cross-validation, with all data (validation &
+% identification) 
+%Plotting identification and validation data on a 3D graph
+figure
+%Plotting identification data
+plot3(dsYear1.DayOfTheYear,dsYear1.DayOfTheWeek,dsYear1.GasConsumption,'o');
+grid on
+title ('GAS CONSUMPTION IN ITALY (3D), in function of day of a Year and day of a week -- Year 1,2');
+xlabel('DayOfTheYear');
+ylabel('DayOfTheWeek');
+zlabel('GasConsumption');
+%Plotting validation data
+hold on
+plot3(dsYear2.DayOfTheYear,dsYear2.DayOfTheWeek,dsYear2.GasConsumption,'r+');
+%Plotting best model for cross-validation (Third degree model)
+mesh(Dy,Dw,shape3_matrix);
+legend('identification data','validation data', 'third degree polynomial model','Location','Northeast'); 
 
 
 % Stopping code to show the result of cross-validation
