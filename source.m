@@ -26,7 +26,7 @@ dsYear2.Properties.VariableNames{1}='DayOfTheYear';
 dsYear2.Properties.VariableNames{2}='DayOfTheWeek';
 dsYear2.Properties.VariableNames{3}='GasConsumption';
 
-% Graph plot (2D, more easy to be "read") 
+% PLOTTING DATASET ON GRAPHS, for each year (2D, more easy to be "read") 
 %Year 1
 figure(1)
 subplot(2,1,1)
