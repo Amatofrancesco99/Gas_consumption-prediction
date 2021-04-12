@@ -5,9 +5,9 @@
 % Remember that:  Y=fi*teta+V, assuming that E[V]=0 & Var[V]=sigma^2
 % Moreover: TetaLS=(Fi^t*Fi)^-1*(Fi^t*Y), where ^t stands for transposition
 % & Var[TetaLS]=sigma^2*(Fi^t*Fi)^-1
-% Theta is the real parameter, ThetaLs instead is the extimated parameter
+% Theta is the real parameter, ThetaLS instead is the extimated parameter
 
-% Whenever sigma^2 is not known, how to calculate the standard deviation?
+% Whenever sigma^2 is not known, how shall we calculate the standard deviation?
 % sigma^2 not known ==> sigma_hat^2=SSR/(n-q)
 % Where SSR=epsilon^t*epsilon
 % Epsilon= Y- Y_hat_LS, where Y_hat_LS=fi*tetaLS.
@@ -18,17 +18,16 @@
 % (tipically alpha = 0.05) search on the table falpha that satisfies:
 %            P(F(1,N-q)<falpha)=(1-alpha)
 
-% Then I apply this easy roule:
+% Then I could apply this simple roule:
 % - If f<falpha ==> choose the model M(q-1)
 % - If f>falpha ==> choose the model model M(q)
 % (falpha is always calculated with the model with more parameters)
 
-% Where with M we mean matrioska models, M(q-1) is the model with less
-% parameters, M(q) the one with more parameters (between the two models taken in
-% consideration).
+% M stands for matrioska models. On one hand we have M(q-1), the model with less
+% parameters, on the other hand we have M(q), the model with more parameters (between the two models considered).
 % f is an reduction index % of sum of squares of residues (SSR) which
 % is obtained by passing from the simplest model to the most complex one and is
-% calculated as follows: 
+% calculated with this approach: 
 %            f=(N-q)*[ (SSR(q-1)-SSR(q)) / SSR(q)]
 % Taking as reference q (in N-q), the more complex model
 
