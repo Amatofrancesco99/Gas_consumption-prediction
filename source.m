@@ -1,47 +1,53 @@
-%% ANNOTAZIONE SUL CODICE 
+%% ANNOTATION ON THE CODE
 
 
-%% RICHIAMI DI TEORIA
+%% THEORETICAL REFERENCES
 
 
-%% AZIONI PRELIMINARI 
-%(PULIZIA MATLAB)
+%% PRELIMINARY ACTIONS 
+%(MATLAB CLEANING)
 clear;
 clc;
 close all;
 
 
-%% SVOLGIMENTO
-% Importo la tabella, selezionando solo i dati a cui sono interessato a
-% visualizzare
-dsAnno1=readtable('./Dataset/gasITAday.xlsx', 'Range', 'A3:C367');
-dsAnno2=readtable('./Dataset/gasITAday.xlsx', 'Range', 'A368:C732');
+%% CORE SCRIPT
+% Save the table information in two dataset, each for a year
+% selecting only the data I’m interested viewing
+dsYear1=readtable('./Dataset/gasITAday.xlsx', 'Range', 'A3:C367');
+dsYear2=readtable('./Dataset/gasITAday.xlsx', 'Range', 'A368:C732');
 
-% Modifico i nomi delle colonne del dataset
-dsAnno1.Properties.VariableNames{1}='GiornoAnno';
-dsAnno1.Properties.VariableNames{2}='GiornoSettimana';
-dsAnno1.Properties.VariableNames{3}='Dati';
+% Change the coloumn's name in the different datasets
+dsYear1.Properties.VariableNames{1}='DayOfTheYear';
+dsYear1.Properties.VariableNames{2}='DayOfTheWeek';
+dsYear1.Properties.VariableNames{3}='Consumption';
 
-dsAnno2.Properties.VariableNames{1}='GiornoAnno';
-dsAnno2.Properties.VariableNames{2}='GiornoSettimana';
-dsAnno2.Properties.VariableNames{3}='Dati';
+dsYear2.Properties.VariableNames{1}='DayOfTheYear';
+dsYear2.Properties.VariableNames{2}='DayOfTheWeek';
+dsYear2.Properties.VariableNames{3}='Consumption';
 
-%Plottiamo i grafici dei due anni
-%Anno1
+% Graph plot (2D, more easy to be "read") 
+%Year 1
 figure(1);
 subplot(2,1,1);
-plot(dsAnno1.GiornoAnno,dsAnno1.Dati, 'Linewidth' , 2);
+plot(dsYear1.DayOfTheYear,dsYear1.Consumption, 'Linewidth' , 2);
 xlabel('Days of Year 1');
 ylabel('Consumption (millionM^3)');
 grid on
-%Anno2
+%Year 2
 subplot(2,1,2);
-plot(dsAnno2.GiornoAnno,dsAnno2.Dati, 'r', 'Linewidth' , 2);
+plot(dsYear2.DayOfTheYear,dsYear2.Consumption, 'r', 'Linewidth' , 2);
 xlabel('Days of Year 2');
 ylabel('Consumption (millionM^3)');
 grid on
 
-%% CONCLUSIONE
+% OBSERVATION:
+% From the diagrams we can already notice that the gas consumption decreases 
+% in the hottest months of the year, more specifically in the days that go 
+% from the 120th (April) to the 290th (September)
+
+
+%% CONCLUSION
 
 
 %% PROGRAM MADE BY FRANCESCO AMATO, FILIPPO ROGNONI & FRANCESCO MINAGLIA
