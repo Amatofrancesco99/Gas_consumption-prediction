@@ -15,7 +15,9 @@ close all;
 
 
 %% SVOLGIMENTO
-
+% Importo la tabella, selezionando solo i dati a cui sono interessato a
+% visualizzare
+ds=readtable('./Dataset/gasITAday.xlsx', 'Range', 'A8:C732');
 
 %% CONCLUSIONE
 
