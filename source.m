@@ -31,12 +31,12 @@ dsYear2.Properties.VariableNames{1}='DayOfTheYear';
 dsYear2.Properties.VariableNames{2}='DayOfTheWeek';
 dsYear2.Properties.VariableNames{3}='GasConsumption';
 
-% PLOTTING DATASET ON GRAPHS, for each year (2D, more easy to be "read") 
-%Year 1
+% PLOTTING DATASET ON 2D GRAPHS, for each year (more easy to be "read") 
 figure(1)
+%Year 1
 subplot(2,1,1)
 plot(dsYear1.DayOfTheYear,dsYear1.GasConsumption, 'Linewidth' , 2);
-title('GAS CONSUMPTION IN ITALY -- Year 1');
+title('GAS CONSUMPTION IN ITALY (2D) -- Year 1');
 xlabel('Days of Year 1');
 ylabel('Consumption (millionM^3)');
 % Added vertical lines to see better the different months gas consumption
@@ -46,7 +46,7 @@ end
 %Year 2
 subplot(2,1,2)
 plot(dsYear2.DayOfTheYear,dsYear2.GasConsumption, 'r', 'Linewidth' , 2);
-title('GAS CONSUMPTION IN ITALY -- Year 2');
+title('GAS CONSUMPTION IN ITALY (2D) -- Year 2');
 xlabel('Days of Year 2');
 ylabel('Consumption (millionM^3)');
 % Added vertical lines to see better the different months gas consumption
@@ -68,6 +68,26 @@ end
 % the residential and commercial sectors. 
 % In the summer months, warm weather leads to more demand for air conditioning 
 % and, in turn, more demand for electricity.
+
+
+% PLOTTING DATASET ON 3D GRAPHS, for each year
+figure(2)
+%Year 1
+subplot(2,1,1)
+plot3(dsYear1.DayOfTheYear,dsYear1.DayOfTheWeek,dsYear1.GasConsumption,'o');
+grid on
+title ('GAS CONSUMPTION IN ITALY (3D), in function of day of a Year and day of a week -- Year 1');
+xlabel('DayOfTheYear');
+ylabel('DayOfTheWeek');
+zlabel('GasConsumption');
+%Year 2
+subplot(2,1,2)
+plot3(dsYear2.DayOfTheYear,dsYear2.DayOfTheWeek,dsYear2.GasConsumption,'o');
+grid on
+title ('GAS CONSUMPTION IN ITALY (3D), in function of day of a Year and day of a week -- Year 2');
+xlabel('DayOfTheYear');
+ylabel('DayOfTheWeek');
+zlabel('GasConsumption -- Year 2');
 
 
 %% CONCLUSION
