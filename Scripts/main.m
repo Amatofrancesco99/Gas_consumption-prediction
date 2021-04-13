@@ -24,6 +24,8 @@ run('./matrioskaIdentification_and_CrossValidation.m');
 
 %% MODEL IDENTIFICATION WITH NEURAL NETWORK
 
+% run the script "mlpNN"
+run('./mlpNN.m');
 
 
 %% CONCLUSION
