@@ -40,9 +40,9 @@
 
 
 %     (1.4)
-% A further criterion for choosing which models to choose,
+% A further criterion for choosing which models to consider,
 % once you have identified the "best" models seen before you choose 
-% those meeting the condition ("dogma"):
+% those that are satisfing the condition ("dogma"):
 % variance of estimated parameter= 2 * standard deviation of estimated parameter
 % In our case:      var_thetaLSX=2*std_thetaLSX
 % Where X is the number of parameters in the model that we are considering
@@ -76,7 +76,11 @@ alpha=0.05; %fixed the level of significance
 % Only seeing the graph of the identification data we can see
 % that the constant model would be too inaccurate, since the data does not
 % are aligned along a plane that cuts the z-axis perpendicularly.
-% By eye it is better to start from a plane with a certain slope, 
+% We could also say that the first degree model shall not be considered,
+% because the data of gas consumption have a periodic trend and
+% therefore the plan must at least deflect...so it cannot be a plan with a
+% constant slope.
+% By eye it is better to start from a second degree model (parable), 
 % and then to gradually more complex models (to evaluate the figures 
 % of merit through different criteria and establish the best model).
 
@@ -84,6 +88,9 @@ alpha=0.05; %fixed the level of significance
 
 
 % 1. FIRST DEGREE POLYNOMIAL MODEL:
+% We consider this model since we may find it useful its merit figures, 
+% when we will have to compare it to the other more complex models, using
+% the different figures of merit (subjective and objective).
 Phi1= [ones(n,1), dsYear1.DayOfTheYear, dsYear1.DayOfTheWeek ]; 
 [ThetaLS1, std_thetaLS1] = lscov(Phi1, dsYear1.GasConsumption);
 
@@ -96,25 +103,6 @@ y_hat1=Phi1*ThetaLS1;
 epsilon1=dsYear1.GasConsumption-y_hat1;
 %SSR calculation
 SSR1=epsilon1'*epsilon1;
-
-%Showing this model
-% We create an ad hoc Phi by inserting as values not the vectors of
-% observations, but vectors containing grid values
-Phi1_grid=[ones(length(Dy_vec),1), Dy_vec, Dw_vec ]; 
-shape1=Phi1_grid*ThetaLS1; %shape creation
-shape1_matrix=reshape(shape1, size(Dy)); %Transform the shape in a matrix
-
-figure
-mesh(Dy,Dw,shape1_matrix);
-hold on
-%Overlay of observations to our model
-plot3(dsYear1.DayOfTheYear, dsYear1.DayOfTheWeek , dsYear1.GasConsumption,'o');
-grid on
-title ('GAS CONSUMPTION IN ITALY (3D), in function of day of a Year and day of a week -- Year 1');
-xlabel('DayOfTheYear');
-ylabel('DayOfTheWeek');
-zlabel('GasConsumption');
-legend('first degree polynomial model' , 'data', 'Location', 'Northeast');
 
 
 % 2. SECOND DEGREE POLYNOMIAL MODEL:
@@ -298,6 +286,7 @@ pause
 close all;
 clc;
 
+
 %% CROSS-VALIDATION
 % Clearly we use validation data to see which model
 % better generalizes even new data, minimizing error/deviation
@@ -389,3 +378,24 @@ pause
 % Close all the figure shown before
 close all;
 clc;
+
+
+%% CONCLUSION
+% 1) Probably the model identified using matrioska models is not absolutely 
+%    the best, but it is a model that minimizes the figures of merit of 
+%    the various criteria (objective and subjective) considered a small group
+%    of matrioska models, not all (and therefore is the best model "locally").
+    
+%    The reason why we do not consider all models, as well as for laziness and
+%    to avoid that the code gets too heavy, is to avoid that the model goes 
+%    more and more to sniff out the data noise (their variance from the 
+%    average value)and not that I’m going to estimate what’s really going on 
+%    (we could use just the average).
+
+% 2) With the cross-validation the best model that results is the third 
+%    degree, it would be much better if we had more data related to different
+%    years and estimate better what really happens going to do a cross 
+%    validation on for example an year3, a year4, etc... this would make it 
+%    much more precise and would make us tell with much more confidence what 
+%    would be the best model (always locally, considering the previous point
+%    of this section)
