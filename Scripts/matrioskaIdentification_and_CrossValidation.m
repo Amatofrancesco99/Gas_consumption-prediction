@@ -56,7 +56,7 @@
 % The second year, instead, is used to verify if the identification model
 % finded (with the first year) could be precise, or not. 
 
-fprintf('MODEL IDENTIFICATION WITH MATRIOSKA MODELS');
+fprintf('MODEL IDENTIFICATION WITH MATRIOSKA MODELS (POLYNOMIAL REGRESSION)');
 
 % USEFUL VARIABLES
 n=length(dsYear1.GasConsumption); %Number of observations
