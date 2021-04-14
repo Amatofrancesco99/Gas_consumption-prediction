@@ -122,7 +122,6 @@ stepAheadPerformance = perform(nets,ts,ys)
 %consumption data) 
 
 
-
 % Stopping code to show the result of the neural network
 pause
 % Close all the figure shown before
