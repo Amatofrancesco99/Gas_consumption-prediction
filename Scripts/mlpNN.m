@@ -65,8 +65,8 @@ net = narxnet(inputDelays,feedbackDelays,hiddenLayerSize,'open',trainFcn);
 [x,xi,ai,t] = preparets(net,X,{},T);
 
 % Setup Division of Data for Training, Validation, Testing
-net.divideParam.trainRatio = 70/100;
-net.divideParam.valRatio = 15/100;
+net.divideParam.trainRatio = 65/100;
+net.divideParam.valRatio = 20/100;
 net.divideParam.testRatio = 15/100;
 
 % Train the Network
@@ -86,7 +86,7 @@ MSE = perform(net,t,y)
 %figure, plottrainstate(tr)
 figure, ploterrhist(e)
 %figure, plotregression(t,y)
-%figure, plotresponse(t,y)
+figure, plotresponse(t,y)
 %figure, ploterrcorr(e)
 %figure, plotinerrcorr(x,e)
 
