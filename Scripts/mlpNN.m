@@ -1,5 +1,14 @@
-%% BEFORE READING THIS CODE, READ THIS LINK... IT CAN BE USEFUL
+%% BEFORE READING THIS CODE, READ THIS SECTION AND THE LINKS:
+
+% For those who don't know we use both the abbreviations:
+%   - MLP: Multi-layer Perceptron
+%   - NN: Neural Network
+
+% TIME SERIES FORECASTING WITH DEEP LEARNING
 % https://towardsdatascience.com/time-series-forecasting-with-deep-learning-and-attention-mechanism-2d001fc871fc
+
+% NARX TIME SERIES - FEEDBACK MLP NEURAL NETWORK
+% https://it.mathworks.com/help/deeplearning/ug/design-time-series-narx-feedback-neural-networks.html
 
 
 %% DATASET VARIABLES:
@@ -15,6 +24,12 @@ outputDatasetNN = table2array(readtable('../Dataset/gasITAday.xlsx', 'Range', 'C
 
 %% TIME SERIES FORCASTING ( USING A NARX MLP NN )
 % SOLVE AN AUTOREGRESSION PROBLEM WITH EXTERNAL INPUT WITH A NARX NEURAL NETWORK
+
+% Dynamic neural networks, which include tapped delay lines, are used 
+% for nonlinear filtering and prediction.
+% Reason why we can think about this network architecture, is because of we
+% are talking about a time series process and we can consider that past 
+% values of y(t) will be available when deployed. 
 
 fprintf('NARX NEURAL NETWORK - MLP NN\n');
 % This script assumes these variables are defined:
@@ -63,7 +78,7 @@ e = gsubtract(t,y);
 MSE = perform(net,t,y)
 
 % VIEW THE NETWORK
-%view(net)
+% view(net)
 
 % PLOTS
 % Uncomment these lines to enable various plots.
