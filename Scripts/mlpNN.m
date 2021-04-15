@@ -77,6 +77,8 @@ y = net(x,xi,ai);
 e = gsubtract(t,y);
 MSE = perform(net,t,y)
 
+standard_deviation=sqrt(MSE)
+
 % VIEW THE NETWORK
 % view(net)
 
