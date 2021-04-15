@@ -120,8 +120,20 @@ ys = nets(xs,xis,ais);
 stepAheadPerformance = perform(nets,ts,ys)
 
 
-%Plotting on a 3D Graph the neural network function generated (with both years gas
-%consumption data) 
+% Plotting on a 3D Graph the neural network gas consumption data prevision 
+% generated (with both years) 
+figure
+grid on
+% Real gas consumption data (both two years)
+plot3(inputDatasetNN(3:end,1),inputDatasetNN(3:end,2), outputDatasetNN(3:end,:), 'o');
+hold on
+% Neural network gas consumption prevision (Why this line doesn't work??)
+plot3(inputDatasetNN(3:end,1),inputDatasetNN(3:end,2), transpose(y), '+', 'r');
+title ('GAS CONSUMPTION IN ITALY (3D) - Real Data vs Neural Network Prevision');
+xlabel('DayOfTheYear');
+ylabel('DayOfTheWeek');
+zlabel('GasConsumption');
+legend('Real Gas Consumption Data','Neural Network Gas Consumption Prevision','Location', 'Northeast')
 
 
 % Stopping code to show the result of the neural network
