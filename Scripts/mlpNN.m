@@ -21,8 +21,87 @@ inputDatasetNN = table2array(readtable('../Dataset/gasITAday.xlsx', 'Range', 'A3
 % (all the gas consumption data, both years)
 outputDatasetNN = table2array(readtable('../Dataset/gasITAday.xlsx', 'Range', 'C3:C732'));
 
+fprintf('NEURAL NETWORKS\n');
 
-%% TIME SERIES FORCASTING ( USING A NARX MLP NN )
+
+%% TIME SERIES FORCASTING ( USING A MLP FITTING NN, WITHOUT AUTOREGRESSION)
+% SOLVE AN INPUT-OUTPU FITTING PROBLEM WITH A NEURAL NETWORK
+
+% In fitting problems, you want a neural network to map between a data set 
+% of numeric inputs and a set of numeric targets.
+
+fprintf('\n  - MLP FITTING NN WITHOUT AUTO-REGRESSION: \n');
+
+% This script assumes these variables are defined:
+%
+%   inputDatasetNN - input data.
+%   outputDatasetNN - target data.
+
+x = inputDatasetNN';
+t = outputDatasetNN';
+
+% Choose a Training Function
+% For a list of all training functions type: help nntrain
+% 'trainlm' is usually fastest.
+% 'trainbr' takes longer but may be better for challenging problems.
+% 'trainscg' uses less memory. Suitable in low memory situations.
+trainFcn = 'trainbr';  % Bayesian Regularization backpropagation.
+
+% Create a Fitting Network
+hiddenLayerSize = 10;
+net = fitnet(hiddenLayerSize,trainFcn);
+
+% Setup Division of Data for Training, Validation, Testing
+net.divideParam.trainRatio = 70/100;
+net.divideParam.valRatio = 15/100;
+net.divideParam.testRatio = 15/100;
+
+% Train the Network
+[net,tr] = train(net,x,t);
+
+% Test the Network
+y = net(x);
+e = gsubtract(t,y);
+MSE = perform(net,t,y)
+
+standard_deviation = sqrt(MSE)
+
+% View the Network
+%view(net)
+
+% Plots
+% Uncomment these lines to enable various plots.
+%figure, plotperform(tr)
+%figure, plottrainstate(tr)
+figure, ploterrhist(e)
+%figure, plotregression(t,y)
+%figure, plotfit(net,x,t)
+
+
+% Plotting on a 3D Graph the MLP NN, without auto-regression, gas consumption
+% data prevision generated ( both years ) 
+figure
+% Real gas consumption data (both two years)
+plot3(inputDatasetNN(:,1),inputDatasetNN(:,2), outputDatasetNN, 'bo');
+hold on
+% MLP NN, without auto-regression, gas consumption prevision
+plot3(inputDatasetNN(:,1),inputDatasetNN(:,2),  y', 'g*');
+grid on
+title ('GAS CONSUMPTION IN ITALY (3D) - Real Data vs MLP NN Prevision');
+xlabel('DayOfTheYear');
+ylabel('DayOfTheWeek');
+zlabel('GasConsumption');
+legend('Real Gas Consumption Data','MLP NN Gas Consumption Prevision','Location', 'Northeast')
+
+
+% Stopping code to show the result of the neural network (without
+% autoregression) 
+pause
+% Close all the figure shown before
+close all;
+
+
+%% TIME SERIES FORCASTING ( USING A NARX MLP NN, WITH AUTOREGRESSION)
 % SOLVE AN AUTOREGRESSION PROBLEM WITH EXTERNAL INPUT WITH A NARX NEURAL NETWORK
 
 % Dynamic neural networks, which include tapped delay lines, are used 
@@ -31,7 +110,7 @@ outputDatasetNN = table2array(readtable('../Dataset/gasITAday.xlsx', 'Range', 'C
 % are talking about a time series process and we can consider that past 
 % values of y(t) will be available when deployed. 
 
-fprintf('NARX NEURAL NETWORK - MLP NN\n');
+fprintf('\n  - NARX NEURAL NETWORK - MLP NN WITH AUTO-REGRESSION: \n');
 % This script assumes these variables are defined:
 %
 %   inputDatasetNN - input time series.
@@ -92,41 +171,14 @@ figure, plotresponse(t,y)
 %figure, ploterrcorr(e)
 %figure, plotinerrcorr(x,e)
 
-% Closed Loop Network
-% Use this network to do multi-step prediction.
-% The function CLOSELOOP replaces the feedback input with a direct
-% connection from the output layer.
-netc = closeloop(net);
-netc.name = [net.name ' - Closed Loop'];
-%view(netc)
-[xc,xic,aic,tc] = preparets(netc,X,{},T);
-yc = netc(xc,xic,aic);
-closedLoopPerformance = perform(net,tc,yc)
 
-% Step-Ahead Prediction Network
-% For some applications it helps to get the prediction a timestep early.
-% The original network returns predicted y(t+1) at the same time it is
-% given y(t+1). For some applications such as decision making, it would
-% help to have predicted y(t+1) once y(t) is available, but before the
-% actual y(t+1) occurs. The network can be made to return its output a
-% timestep early by removing one delay so that its minimal tap delay is now
-% 0 instead of 1. The new network returns the same outputs as the original
-% network, but outputs are shifted left one timestep.
-nets = removedelay(net);
-nets.name = [net.name ' - Predict One Step Ahead'];
-%view(nets)
-[xs,xis,ais,ts] = preparets(nets,X,{},T);
-ys = nets(xs,xis,ais);
-stepAheadPerformance = perform(nets,ts,ys)
-
-
-% Plotting on a 3D Graph the neural network gas consumption data prevision 
+% Plotting on a 3D Graph the NARX neural network gas consumption data prevision 
 % generated (with both years) 
 figure
 % Real gas consumption data (both two years)
 plot3(inputDatasetNN(3:end,1),inputDatasetNN(3:end,2), outputDatasetNN(3:end,:), 'bo');
 hold on
-% Neural network gas consumption prevision
+% NARX MLP NN, with auto-regression, gas consumption prevision
 % Convert y from cell to double (we need it later)
 y_from_cell_to_double=length(y);
 for i = 1:length(y)
@@ -134,15 +186,33 @@ for i = 1:length(y)
 end
 plot3(inputDatasetNN(3:end,1),inputDatasetNN(3:end,2),  y_from_cell_to_double', 'g*');
 grid on
-title ('GAS CONSUMPTION IN ITALY (3D) - Real Data vs Neural Network Prevision');
+title ('GAS CONSUMPTION IN ITALY (3D) - Real Data vs NARX MLP NN Prevision');
 xlabel('DayOfTheYear');
 ylabel('DayOfTheWeek');
 zlabel('GasConsumption');
-legend('Real Gas Consumption Data','Neural Network Gas Consumption Prevision','Location', 'Northeast')
+legend('Real Gas Consumption Data','NARX MLP NN Gas Consumption Prevision','Location', 'Northeast')
 
 
-% Stopping code to show the result of the neural network
+% Stopping code to show the result of the neural network (with
+% autoregression) 
 pause
 % Close all the figure shown before
 close all;
 clc;
+
+
+%% CONCLUSION (COMPARISON BETWEEN THOSE TWO DIFFERENT NEURAL NETWORK ARCHITECTURES & RESULTS)
+
+% By eye, it can be said that the network without self-regression gives 
+% results much more imprecise than the one with self-regression, although 
+% the one without has an higher number of neurons in the hidden layer 
+% (10 neurons against 5).
+% We can say that, in terms of MSE, the network with autoregressive 
+% part produce results 10 times better than the one without.
+% The training algorithm choose for both neural network it's the same
+% ( Bayesian Regularization backpropagation ).
+
+
+% WHY THIS HAPPENS?
+% Read this interesting article
+% https://www.google.it/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwi5rJKOvIHwAhXj_rsIHWH_BuQQFjAAegQIAxAD&url=https%3A%2F%2Fcyberleninka.org%2Farticle%2Fn%2F735808.pdf&usg=AOvVaw0NfHODmjX3dw-8tc8GjRsl
