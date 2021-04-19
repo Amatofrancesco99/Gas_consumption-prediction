@@ -11,13 +11,13 @@
 %% PLOT 2D GAS CONSUMPTION (both Years)
 
 % date of both years
-date = linspace(1,730,730);
+days = linspace(1,730,730);
 gas_consumption = table2array(readtable('../Dataset/gasITAday.xlsx', 'Range', 'C3:C732'));
 
 
 figure(1)
 %Year 1
-plot(date,gas_consumption);
+plot(days,gas_consumption);
 title('GAS CONSUMPTION IN ITALY (2D) -- Two Years');
 xlabel('Days');
 ylabel('Consumption (millionM^3)');
@@ -31,7 +31,7 @@ end
 
 figure(2)
 [Periodogram,f]=periodogram(gas_consumption,[],[],1000);
-plot(f,Pxx);
+plot(f,Periodogram);
 title('SPECTRUM OF THE GAS CONSUMPTION FUNCTION');
 xlabel('frequency (Hz)')
 ylabel('FFT Gas Consumption')
