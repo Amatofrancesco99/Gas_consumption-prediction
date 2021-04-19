@@ -27,29 +27,18 @@ for i = 1:24
 end
 
 
-%% SPECTRUM OF THE GAS CONSUMPTION FUNCTION
+%% SPECTRUM OF THE GAS CONSUMPTION FUNCTION (EXTIMATION WITH PERIODOGRAM)
 
-Fs = 1000;            % Sampling frequency                    
-T = 1/Fs;             % Sampling period       
-L = 730;              % Length of signal (number of days)
-t = (0:L-1)*T;        % Time vector
-
-fftGasConsumption=fft(gas_consumption);
-P2 = abs(fftGasConsumption/L);
-P1 = P2(1:L/2+1);
-P1(2:end-1) = 2*P1(2:end-1);
-f = Fs*(0:(L/2))/L;
-figure()
-plot(f,P1) 
+figure(2)
+[Periodogram,f]=periodogram(gas_consumption,[],[],1000);
+plot(f,Pxx);
 title('SPECTRUM OF THE GAS CONSUMPTION FUNCTION');
 xlabel('frequency (Hz)')
 ylabel('FFT Gas Consumption')
 
 
 %% FIND IMPORTANT FREQUENCY PEAKS, IN FFT FUNCTION
-%pks = findpeaks(fftGasConsumption);
-pks=[0 2.74 5.4]; %frequency of peaks
-height_pks = [85.61 78.57 24.04]; %height of peaks
+[peaksHeight,peaksLocation]=findpeaks(Periodogram);
 
 
 % Calcoliamo una funzione spettrale costituita solamente dai tre picchi
