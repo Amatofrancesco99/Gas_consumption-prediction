@@ -88,8 +88,12 @@ signal_0=ampPeakIn0/2;
 signal=0;
 % Because important peaks are 4, as said in the firs observation section
 % (with the one in 0 included)
-for n=1:3
-    signal = (signal+signal_0+amp(n)*cos(2*pi*freqs(n)*days)+amp(n)*sin(2*pi*freqs(n)*days)); 
+for n=0:3
+    if n==0
+        signal = signal_0;
+    else
+        signal = signal+amp(n)*cos(2*pi*freqs(n)*days)+amp(n)*sin(2*pi*freqs(n)*days);
+    end
 end
 figure(3)
 plot(smooth(signal));
@@ -97,9 +101,12 @@ plot(smooth(signal));
 for i = 1:24
        xline(i*30, 'm--');
 end
-title('GAS CONSUMPTION FUNCTION (IN ITALY): reconstruction, using only frequencies with important contribution');
+hold on
+plot(days,gas_consumption);
+title('GAS CONSUMPTION FUNCTION (IN ITALY)');
 xlabel('Days');
 ylabel('Consumption (millionM^3)');
+legend('Gas consumption function "reconstructed", using only important frequencies','Real gas consumption trend');
 
 
 %% MSE AND STANDARD DEVIATION OF FOURIER MODEL IDENTIFICATION
