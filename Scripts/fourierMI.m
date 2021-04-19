@@ -87,7 +87,8 @@ legend('ORIGINAL SIGNAL SPECTRUM','ALL PEAKS','IMPORTANT PEAKS')
 freqs = (locs-1)/days(end); 
 signal_0=ampPeakIn0/2; 
 signal=0;
-% Because important peaks are only 3 (with the one in 0 included)
+% Because important peaks are 4, as said in the firs observation section
+% (with the one in 0 included)
 for n=1:3
     signal = (signal+signal_0+amp(n)*sin(2*pi*freqs(n)*days)); 
 end
