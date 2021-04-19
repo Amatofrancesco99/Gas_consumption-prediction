@@ -93,6 +93,10 @@ for n=1:3
 end
 figure(3)
 plot(smooth(signal));
+% Added vertical lines to see better the different months gas consumption
+for i = 1:24
+       xline(i*30, 'm--');
+end
 title('GAS CONSUMPTION FUNCTION (IN ITALY): reconstruction, using only frequencies with important contribution');
 xlabel('Days');
 ylabel('Consumption (millionM^3)');
