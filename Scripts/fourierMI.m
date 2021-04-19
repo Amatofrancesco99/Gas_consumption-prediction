@@ -46,7 +46,7 @@ xlabel('frequency (Hz)')
 ylabel('FFT Gas Consumption')
 
 
-% Find the important frequency in the FFT function
+%% FIND IMPORTANT FREQUENCY PEAKS, IN FFT FUNCTION
 %pks = findpeaks(fftGasConsumption);
 pks=[0 2.74 5.4]; %frequency of peaks
 height_pks = [85.61 78.57 24.04]; %height of peaks
