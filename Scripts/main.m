@@ -28,6 +28,12 @@ run('./matrioskaIdentification_and_CrossValidation.m');
 run('./mlpNN.m');
 
 
+%% FOURIER MODEL IDENTIFICATION
+
+% run the script "fourierMI" (MI stands for "model identification") 
+run('./fourierMI.m');
+
+
 %% CONCLUSION
 
 
