@@ -53,6 +53,11 @@ end
 % In the summer months, warm weather leads to more demand for air conditioning 
 % and, in turn, more demand for electricity.
 
+% ANOTHER OBSERVATION:
+% Considered a specific weekly window (7 days), we can see that during the 
+% weekends the gas consumption is lower than the other 5 days of that same
+% week.
+
 % SOME MATHEMATICAL OBSERVATIONS:
 % From the 2D graph of the two signals (gas consumption, depending on the day 
 % of the year and the day of the week), we can also notice that it is a discrete
