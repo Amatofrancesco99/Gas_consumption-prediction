@@ -91,7 +91,7 @@ signal=0;
 for n=1:3
     signal = (signal+signal_0+amp(n)*sin(2*pi*freqs(n)*days)); 
 end
-figure(4)
+figure(3)
 plot(smooth(signal));
 title('GAS CONSUMPTION FUNCTION (IN ITALY): reconstruction, using only frequencies with important contribution');
 xlabel('Days');
