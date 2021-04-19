@@ -110,7 +110,7 @@ for i = 1:length(Residuals)
 end
 SSR_Fourier
 MSE_Fourier=SSR_Fourier/length(days);
-standard_deviation_Fourier=sqrt(MSE_Fourier)
+sd_Fourier=sqrt(MSE_Fourier)
 
 
 % Stopping code to show only the results
