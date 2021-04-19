@@ -1,6 +1,6 @@
 # Model Identification and Data Analysis - PROJECT
 
-The topic of this project is: "Time series forecasting, using model identification theory". 
+The topic of this project is: "Long-Term Time-Series forecasting, using model identification theory". 
 
 To identify the best model that represent our time series function (gas consumption in Italy, during two different years) we've used: polynomial regression, neural networks and finally Fourier.
 
