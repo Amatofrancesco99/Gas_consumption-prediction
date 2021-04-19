@@ -74,10 +74,9 @@ hold on
 % Because findpeaks function does not find the peak in 0, we insert it
 % manually
 ampPeakIn0= 85.61;
-%Show those peaks on plot shown before
-plot([0;locs],[ampPeakIn0;amp],'r+');
-plot([0;locs(1:3)],[ampPeakIn0;amp(1:3)],'go');
-legend('ORIGINAL SIGNAL SPECTRUM','ALL PEAKS','IMPORTANT PEAKS')
+%Show only important peaks on plot shown before
+plot([0;locs(1:3)],[ampPeakIn0;amp(1:3)],'g*');
+legend('ORIGINAL SIGNAL SPECTRUM','IMPORTANT PEAKS')
 
 
 %% "REBUILD" ORIGINAL FUNCTION USING MOST IMPORTANT FREQUENCIES
@@ -90,7 +89,7 @@ signal=0;
 % Because important peaks are 4, as said in the firs observation section
 % (with the one in 0 included)
 for n=1:3
-    signal = (signal+signal_0+amp(n)*sin(2*pi*freqs(n)*days)); 
+    signal = (signal+signal_0+amp(n)*cos(2*pi*freqs(n)*days)+amp(n)*sin(2*pi*freqs(n)*days)); 
 end
 figure(3)
 plot(smooth(signal));
@@ -101,7 +100,6 @@ end
 title('GAS CONSUMPTION FUNCTION (IN ITALY): reconstruction, using only frequencies with important contribution');
 xlabel('Days');
 ylabel('Consumption (millionM^3)');
-
 
 
 % Stopping code to show only the results
