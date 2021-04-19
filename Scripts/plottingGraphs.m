@@ -19,7 +19,7 @@ fprintf('PLOTTING DATASET ON 2D & 3D GRAPHS');
 figure(1)
 %Year 1
 subplot(2,1,1)
-plot(dsYear1.DayOfTheYear,dsYear1.GasConsumption, 'Linewidth' , 2);
+plot(dsYear1.DayOfTheYear,dsYear1.GasConsumption, '-o');
 title('GAS CONSUMPTION IN ITALY (2D) -- Year 1');
 xlabel('Days of Year 1');
 ylabel('Consumption (millionM^3)');
@@ -29,7 +29,7 @@ for i = 1:12
 end
 %Year 2
 subplot(2,1,2)
-plot(dsYear2.DayOfTheYear,dsYear2.GasConsumption, 'r', 'Linewidth' , 2);
+plot(dsYear2.DayOfTheYear,dsYear2.GasConsumption, 'r-o');
 title('GAS CONSUMPTION IN ITALY (2D) -- Year 2');
 xlabel('Days of Year 2');
 ylabel('Consumption (millionM^3)');
