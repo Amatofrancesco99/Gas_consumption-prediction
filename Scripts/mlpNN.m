@@ -62,9 +62,11 @@ net.divideParam.testRatio = 15/100;
 % Test the Network
 y = net(x);
 e = gsubtract(t,y);
-MSE = perform(net,t,y)
+MSE = perform(net,t,y);
 
-standard_deviation = sqrt(MSE)
+
+SSR_MLP_NN=MSE*length(outputDatasetNN)
+sdMLP_NN = sqrt(MSE)
 
 % View the Network
 %view(net)
@@ -154,9 +156,10 @@ net.divideParam.testRatio = 15/100;
 % Test the Network
 y = net(x,xi,ai);
 e = gsubtract(t,y);
-MSE = perform(net,t,y)
+MSE = perform(net,t,y);
 
-standard_deviation=sqrt(MSE)
+SSR_NARX_MLP_NN=MSE*length(outputDatasetNN)
+sdNARX_MLP_NN=sqrt(MSE)
 
 % VIEW THE NETWORK
 % view(net)
