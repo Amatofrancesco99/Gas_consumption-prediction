@@ -102,6 +102,17 @@ xlabel('Days');
 ylabel('Consumption (millionM^3)');
 
 
+%% MSE AND STANDARD DEVIATION OF FOURIER MODEL IDENTIFICATION
+Residuals=(gas_consumption.'-signal);
+SSR_Fourier=0;
+for i = 1:length(Residuals)
+       SSR_Fourier=SSR_Fourier+Residuals(i).^2;
+end
+SSR_Fourier
+MSE_Fourier=SSR_Fourier/length(days);
+standard_deviation_Fourier=sqrt(MSE_Fourier)
+
+
 % Stopping code to show only the results
 pause
 % Close all the figure shown before
