@@ -104,7 +104,7 @@ plot(days,gas_consumption);
 title('GAS CONSUMPTION FUNCTION (IN ITALY)');
 xlabel('Days');
 ylabel('Consumption (millionM^3)');
-legend('Gas consumption function "reconstructed", using only important frequencies','Real gas consumption trend');
+legend('Gas consumption prediction, using important frequencies','Real gas consumption trend');
 
 
 %% MSE AND STANDARD DEVIATION OF FOURIER MODEL IDENTIFICATION
