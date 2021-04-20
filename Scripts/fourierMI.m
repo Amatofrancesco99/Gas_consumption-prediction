@@ -20,7 +20,7 @@ fprintf('MODEL IDENTIFICATION, USING FOURIER THEORY\n');
 % days of both years
 days = linspace(1,730,730);
 % gas consumption during both years
-gas_consumption = table2array(readtable('../Dataset/gasITAday.xlsx', 'Range', 'C3:C732'));
+gas_consumption = table2array(readtable('../Dataset/gasITAday.xlsx', 'Range', 'C2:C732'));
 
 
 % Plotting part
