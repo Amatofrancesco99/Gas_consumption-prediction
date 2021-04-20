@@ -45,11 +45,14 @@ run('./fourierMI.m');
 % is the MLP NN (Multi-Layer-Percetron Neural Network). 
 
 % IMPORTANT:
-% Note that the best model was built on the basis of the data we had, if
+% Note that the best model was built on the basis of the data we had. If
 % you think you can predict the gas consumption in non-"normal" situations
 % such as this year because of Covid, the forecast could be very different
-% from what actually happens. Clearly you have to keep a lot of 
-% "variables" in mind, predicting those kind of trend.
+% from what actually happens. 
+% This is because the Covid-19 has led to the temporary closure of many factories, 
+% with a consequence on the trend of gas consumption (it has clearly decreased).
+% Clearly you have to keep a lot of "variables" in mind, predicting 
+% those kind of trend.
 
 
 %% PREDICTING GAS CONSUMPTION WITH ENTRY VALUES, USING BEST MODEL
