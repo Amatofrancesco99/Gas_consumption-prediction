@@ -13,7 +13,7 @@
 %   (weekly seasonality).
 
 
-%% PLOT 2D GAS CONSUMPTION (both Years)
+%% PLOT 2D GAS CONSUMPTION (both years)
 
 fprintf('MODEL IDENTIFICATION, USING FOURIER THEORY\n');
 
@@ -66,7 +66,7 @@ xlabel('frequency (mHz)')
 ylabel('FFT Gas Consumption')
 
 
-%% FIND ALL PEAKS OF THE SIGNAL SPECTRUM
+%% FIND ALL PEAKS OF THE SIGNAL SPECTRUM & SELECTING IMPORTANT ONE
 
 hold on
 %Find important peaks of the signal spectrum
@@ -94,7 +94,7 @@ signal=signal_0;
      signal = signal+amp(n)*cos(2*pi*freqs(n)*days-pi/8);
 end
 figure(3)
-plot(smooth(signal));
+plot(smooth(signal),'LineWidth',2);
 % Added vertical lines to see better the different months gas consumption
 for i = 1:24
        xline(i*30, 'm--');
@@ -108,6 +108,7 @@ legend('Gas consumption function "reconstructed", using only important frequenci
 
 
 %% MSE AND STANDARD DEVIATION OF FOURIER MODEL IDENTIFICATION
+
 Residuals=(gas_consumption.'-signal);
 SSR_Fourier=0;
 for i = 1:length(Residuals)
