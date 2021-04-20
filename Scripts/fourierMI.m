@@ -75,7 +75,9 @@ hold on
 % manually
 ampPeakIn0= 85.61;
 %Show only important peaks on plot shown before
-plot([0;locs(1:3)],[ampPeakIn0;amp(1:3)],'g*');
+locsImpPeaks= locs(1:2);
+ampImpPeaks= amp(1:2);
+plot([0;locsImpPeaks],[ampPeakIn0;ampImpPeaks],'g*');
 legend('ORIGINAL SIGNAL SPECTRUM','IMPORTANT PEAKS')
 
 
@@ -83,17 +85,13 @@ legend('ORIGINAL SIGNAL SPECTRUM','IMPORTANT PEAKS')
 
 % Remember how Fourier series are built
 % If you don't remember, look at this link: https://en.wikipedia.org/wiki/Fourier_series
-freqs = (locs-1)/days(end); 
-signal_0=ampPeakIn0/2; 
-signal=0;
+freqs = (locsImpPeaks-1)/days(end); 
+signal_0=ampPeakIn0; 
+signal=signal_0;
 % Because important peaks are 4, as said in the firs observation section
 % (with the one in 0 included)
-for n=0:3
-    if n==0
-        signal = signal_0;
-    else
-        signal = signal+amp(n)*cos(2*pi*freqs(n)*days)+amp(n)*sin(2*pi*freqs(n)*days);
-    end
+ for n=1:length(freqs)
+     signal = signal+ampImpPeaks(n)*cos(2*pi*freqs(n)*days-pi/8);
 end
 figure(3)
 plot(smooth(signal));
