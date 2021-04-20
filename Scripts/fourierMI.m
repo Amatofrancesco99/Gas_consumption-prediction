@@ -85,13 +85,13 @@ legend('ORIGINAL SIGNAL SPECTRUM','IMPORTANT PEAKS')
 
 % Remember how Fourier series are built
 % If you don't remember, look at this link: https://en.wikipedia.org/wiki/Fourier_series
-freqs = (locsImpPeaks-1)/days(end); 
+freqs = (locs-1)/days(end); 
 signal_0=ampPeakIn0; 
 signal=signal_0;
-% Because important peaks are 4, as said in the firs observation section
+% Because important peaks are 4, as said in the "first observation" section
 % (with the one in 0 included)
- for n=1:length(freqs)
-     signal = signal+ampImpPeaks(n)*cos(2*pi*freqs(n)*days-pi/8);
+ for n=1:length(locsImpPeaks)
+     signal = signal+amp(n)*cos(2*pi*freqs(n)*days-pi/8);
 end
 figure(3)
 plot(smooth(signal));
