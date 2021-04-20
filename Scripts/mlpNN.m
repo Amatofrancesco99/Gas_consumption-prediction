@@ -49,7 +49,7 @@ trainFcn = 'trainbr';  % Bayesian Regularization backpropagation.
 
 % Create a Fitting Network
 hiddenLayerSize = 10;
-net = fitnet(hiddenLayerSize,trainFcn);
+MLPNN_net = fitnet(hiddenLayerSize,trainFcn);
 
 % Setup Division of Data for Training, Validation, Testing
 net.divideParam.trainRatio = 70/100;
@@ -57,12 +57,12 @@ net.divideParam.valRatio = 15/100;
 net.divideParam.testRatio = 15/100;
 
 % Train the Network
-[net,tr] = train(net,x,t);
+[MLPNN_net,tr] = train(MLPNN_net,x,t);
 
 % Test the Network
-y = net(x);
+y = MLPNN_net(x);
 e = gsubtract(t,y);
-MSE = perform(net,t,y);
+MSE = perform(MLPNN_net,t,y);
 
 
 SSR_MLP_NN=MSE*length(outputDatasetNN)
@@ -135,7 +135,7 @@ feedbackDelays = 1:2;
 % you do not get better performance.
 % ( talking about performance in terms of mean square error ) 
 hiddenLayerSize = 5;
-net = narxnet(inputDelays,feedbackDelays,hiddenLayerSize,'open',trainFcn);
+NARX_net = narxnet(inputDelays,feedbackDelays,hiddenLayerSize,'open',trainFcn);
 
 % Prepare the Data for Training and Simulation
 % The function PREPARETS prepares timeseries data for a particular network,
@@ -143,7 +143,7 @@ net = narxnet(inputDelays,feedbackDelays,hiddenLayerSize,'open',trainFcn);
 % states. Using PREPARETS allows you to keep your original time series data
 % unchanged, while easily customizing it for networks with differing
 % numbers of delays, with open loop or closed loop feedback modes.
-[x,xi,ai,t] = preparets(net,X,{},T);
+[x,xi,ai,t] = preparets(NARX_net,X,{},T);
 
 % Setup Division of Data for Training, Validation, Testing
 net.divideParam.trainRatio = 65/100;
@@ -151,12 +151,12 @@ net.divideParam.valRatio = 20/100;
 net.divideParam.testRatio = 15/100;
 
 % Train the Network
-[net,tr] = train(net,x,t,xi,ai);
+[NARX_net,tr] = train(NARX_net,x,t,xi,ai);
 
 % Test the Network
-y = net(x,xi,ai);
+y = NARX_net(x,xi,ai);
 e = gsubtract(t,y);
-MSE = perform(net,t,y);
+MSE = perform(NARX_net,t,y);
 
 SSR_NARX_MLP_NN=MSE*length(outputDatasetNN)
 sdNARX_MLP_NN=sqrt(MSE)
