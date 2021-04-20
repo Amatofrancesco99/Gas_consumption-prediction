@@ -3,6 +3,11 @@
 % time series.
 
 
+%% ADVISE
+% If you want to see only prediction of gas consumption, after inserting
+% values (days of the week, days of the year), comment all the other run sections
+
+
 %% PRELIMINARY ACTIONS 
 %(MATLAB CLEANING)
 clear;
@@ -34,7 +39,7 @@ run('./mlpNN.m');
 run('./fourierMI.m');
 
 
-%% CONCLUSION
+%% CONCLUSION (BEST MODEL)
 
 
 
