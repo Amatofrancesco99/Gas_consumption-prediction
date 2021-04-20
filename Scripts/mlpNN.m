@@ -95,3 +95,4 @@ legend('Real Gas Consumption Data','MLP NN Gas Consumption Prevision','Location'
 pause
 % Close all the figure shown before
 close all;
+clc;
