@@ -41,6 +41,15 @@ run('./fourierMI.m');
 
 %% CONCLUSION (BEST MODEL)
 
+% With our dataset the best model (in terms of standard deviation and SSR),
+% is the MLP NN (Multi-Layer-Percetron Neural Network). 
+
+% IMPORTANT:
+% Note that the best model was built on the basis of the data we had, if
+% you think you can predict the gas consumption in non-"normal" situations
+% such as this year because of Covid, the forecast could be very different
+% from what actually happens. Clearly you have to keep a lot of 
+% "variables" in mind, predicting those kind of trend.
 
 
 %% PREDICTING GAS CONSUMPTION WITH ENTRY VALUES, USING BEST MODEL
