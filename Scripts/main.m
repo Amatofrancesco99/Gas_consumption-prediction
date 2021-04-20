@@ -52,10 +52,12 @@ END=0; % You want to end the prediction of gas consumption, inserting new values
 while (END==0)
   % Insert and Control of: Day of the week and Day of the year Variables
   % to than predict gas consumes
-  while (DayOfTheWeek<=0 || DayOfTheWeek>7) || (DayOfTheWeek<=0 || DayOfTheWeek>365)
+  while (DayOfTheWeek<=0 || DayOfTheWeek>7)
       fprintf('Insert the day of the week (it must be an integer)');
       fprintf('(Remember that 1 is Sunday, 7 is Saturday)');
       DayOfTheWeek=str2int(input());
+  end
+  while ((DayOfTheYear<=0 || DayOfTheYear>365))
       fprintf('Insert the day of the year (it must be an integer, from 1 to 365)');
       DayOfTheYear=str2int(input());
   end
