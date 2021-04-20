@@ -1,7 +1,11 @@
+%% AIM OF THIS CODE
 % In this section the gas consumption forecast is made, inserted on the day
 % of the week and the day of the year, using the best model among those 
 % previously shown: polynomial regression, neural networks, Fourier series
-% (read the conclusions section to understand better)
+% (read the conclusions section, in main script, to understand better)
+
+
+%% SCRIPT
 fprintf('PREDICTING GAS CONSUMES, USING BEST MODEL\n');
 
 DayOfTheWeek=0;
@@ -47,7 +51,7 @@ pause
 clc;
 
 
-%% PREDICTION FUNCTION, USING NEURAL NETWORK
+%% PREDICTION OF GAS CONSUMPTION VALUES, USING NEURAL NETWORK
 
 % Identify neural network model
 function net =identifyMLP_net()
