@@ -44,9 +44,6 @@ while (END==0)
   end   
 end
 
-
-% Stop to see the results
-pause
 % Clear terminal
 clc;
 
