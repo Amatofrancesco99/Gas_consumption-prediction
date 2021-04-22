@@ -318,7 +318,7 @@ y_hat1Val=Phi1Val*ThetaLS1;
 epsilon1Val=dsYear2.GasConsumption-y_hat1Val;
 SSR1Val=epsilon1Val'*epsilon1Val;
 %Standard deviation calculation
-sd1Val=sqrt(SSR1Val/length(n));
+sd1Val=sqrt(SSR1Val/(length(n)+lenght(nVal)));
 
 % 2. SECOND DEGREE POLYNOMIAL MODEL
 Phi2Val=[ones(nVal,1), dsYear2.DayOfTheYear, dsYear2.DayOfTheWeek ...
@@ -327,7 +327,7 @@ y_hat2Val=Phi2Val*ThetaLS2;
 epsilon2Val=dsYear2.GasConsumption-y_hat2Val;
 SSR2Val=epsilon2Val'*epsilon2Val;
 %Standard deviation calculation
-sd2Val=sqrt(SSR2Val/length(n));
+sd2Val=sqrt(SSR2Val/(length(n)+lenght(nVal)));
 
 % 3. THIRD DEGREE POLYNOMIAL MODEL
 Phi3Val=[ones(nVal,1), dsYear2.DayOfTheYear, dsYear2.DayOfTheWeek ...
@@ -338,7 +338,7 @@ y_hat3Val=Phi3Val*ThetaLS3;
 epsilon3Val=dsYear2.GasConsumption-y_hat3Val;
 SSR3Val=epsilon3Val'*epsilon3Val;
 %Standard deviation calculation
-sd3Val=sqrt(SSR3Val/length(n));
+sd3Val=sqrt(SSR3Val/(length(n)+lenght(nVal)));
 
 % 4. FOURTH DEGREE POLYNOMIAL MODEL
 Phi4Val=[ones(nVal,1), dsYear2.DayOfTheYear, dsYear2.DayOfTheWeek ...
@@ -352,7 +352,7 @@ y_hat4Val=Phi4Val*ThetaLS4;
 epsilon4Val=dsYear2.GasConsumption-y_hat4Val;
 SSR4Val=epsilon4Val'*epsilon4Val;
 %Standard deviation calculation
-sd4Val=sqrt(SSR4Val/length(n));
+sd4Val=sqrt(SSR4Val/(length(n)+lenght(nVal)));
 
 % This time, to choose the best model let’s see which is the
 % model that minimizes the SSR (Ssrval) between the data provided by the model and
