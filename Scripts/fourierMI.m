@@ -19,6 +19,7 @@ fprintf('MODEL IDENTIFICATION, USING FOURIER THEORY\n');
 
 % days of both years
 days = linspace(1,730,730);
+%%daysWeek = table2array(readtable('../Dataset/gasITAday.xlsx', 'Range', 'B2:B732'))';
 % gas consumption during both years
 gas_consumption = table2array(readtable('../Dataset/gasITAday.xlsx', 'Range', 'C2:C732'));
 
@@ -91,7 +92,11 @@ signal=signal_0;
 % Because important peaks are 4, as said in the "first observation" section
 % (with the one in 0 included)
  for n=1:length(locsImpPeaks)
-     signal = signal+amp(n)*cos(2*pi*freqs(n)*days-pi/8);
+    %%if (n==3)
+         %%signal=signal+amp(n)*square(freqs(n)*daysWeek,0.285);
+    %%else
+         signal = signal+amp(n)*cos(2*pi*freqs(n)*days-pi/8);
+    %%end
 end
 figure(3)
 plot(smooth(signal),'LineWidth',2);
