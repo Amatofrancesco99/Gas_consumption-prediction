@@ -98,19 +98,20 @@ dsYear2.Properties.VariableNames{3}='GasConsumption';
 
 n=length(dsYear1.GasConsumption); %Number of observations
 nVal=length(dsYear2.GasConsumption); % Number of observation (for validation)
-% Array containing all values of the days in a week, that we will consider
-daysOfTheWeek_grid=linspace(0,7,100); 
-% Array containing all values of the days in a year, that we will consider
-daysOfTheYear_grid=linspace(0,365,100); 
-% We get the matrices with the two coordinates
-[Dy, Dw]=meshgrid(daysOfTheYear_grid, daysOfTheWeek_grid);
-Dw_vec=Dw(:);
-Dy_vec=Dy(:);
-alpha=0.05; %fixed the level of significance
 
 
-%% First degree 
-Phi1= [ones(n,1), cos(((2*pi)/7)*linspace(1,365,365)'), sin(((2*pi)/7)*linspace(1,365,365)') ]; 
+%% MODEL IDENTIFICATION 
+
+% Visto che l'andamento annuale non è costante è meglio partire da un
+% armonica di primo grado, per poi effettuare i vari confronti e vedere il
+% modello migliore.
+
+% Stimiamo un modello che rappresenti l'andamento annuale, successivamente
+% utilizzeremo anche un modello che rappresenta il trend settimanale
+
+
+% ARMONICA DI PRIMO GRADO
+Phi1= [ones(n,1), cos(((pi)/365)*dsYear1.DayOfTheYear), sin(((pi)/365)*dsYear1.DayOfTheYear) ]; 
 [ThetaLS1, std_thetaLS1] = lscov(Phi1, dsYear1.GasConsumption);
 
 % Variables that will be useful to us regarding the choice of
@@ -123,28 +124,25 @@ epsilon1=dsYear1.GasConsumption-y_hat1;
 %SSR calculation
 SSR1=epsilon1'*epsilon1;
 
-%Showing this model
-% We create an ad hoc Phi by inserting as values not the vectors of
-% observations, but vectors containing grid values
-Phi1_grid=[ones(length(Dy_vec),1), Dy_vec, Dw_vec]; 
-shape1=Phi1_grid*ThetaLS1; %shape creation
-shape1_matrix=reshape(shape1, size(Dy)); %Transform the shape in a matrix
 
-figure
-mesh(Dy,Dw,shape1_matrix);
+figure()
+% Plotted on a graph data
+plot3(dsYear1.DayOfTheYear,dsYear1.DayOfTheWeek, dsYear1.GasConsumption, 'bo')
 hold on
-%Overlay of observations to our model
-plot3(dsYear1.DayOfTheYear, dsYear1.DayOfTheWeek , dsYear1.GasConsumption,'o');
+% Plotting on graphs identified model
+fun = @(a0,a1,b1,x) a0 + a1*cos(x*((pi)/365)) + b1*sin(x*((pi)/365));
+plot3(dsYear1.DayOfTheYear, dsYear1.DayOfTheWeek,fun(ThetaLS1(1),ThetaLS1(2),ThetaLS1(3),dsYear1.DayOfTheYear), 'm*');
 grid on
 title ('GAS CONSUMPTION IN ITALY (3D), in function of day of a Year and day of a week');
 xlabel('DayOfTheYear');
 ylabel('DayOfTheWeek');
 zlabel('GasConsumption');
-legend('first degree model' , 'data', 'Location', 'Northeast');
+legend( 'data','First degree Sin/Cos model', 'Location', 'Northeast');
 
 
-%% Second degree
-Phi2= [ones(n,1), cos(((2*pi)/7)*linspace(1,365,365)'), sin(((2*pi)/7)*linspace(1,365,365)'), cos(((4*pi)/7)*linspace(1,365,365)'), sin(((4*pi)/7)*linspace(1,365,365)') ]; 
+% ARMONICA DI SECONDO GRADO
+Phi2= [ones(n,1), cos(((pi)/365)*dsYear1.DayOfTheYear), sin(((pi)/365)*dsYear1.DayOfTheYear) ...
+    , cos(((2*pi)/365)*dsYear1.DayOfTheYear), sin(((2*pi)/365)*dsYear1.DayOfTheYear)]; 
 [ThetaLS2, std_thetaLS2] = lscov(Phi2, dsYear1.GasConsumption);
 
 % Variables that will be useful to us regarding the choice of
@@ -157,24 +155,85 @@ epsilon2=dsYear1.GasConsumption-y_hat2;
 %SSR calculation
 SSR2=epsilon2'*epsilon2;
 
-%Showing this model
-% We create an ad hoc Phi by inserting as values not the vectors of
-% observations, but vectors containing grid values
-Phi2_grid=[ones(length(Dy_vec),1), Dy_vec, Dw_vec, Dy_vec.^2, Dw_vec.^2 ]; 
-shape2=Phi2_grid*ThetaLS2; %shape creation
-shape2_matrix=reshape(shape2, size(Dy)); %Transform the shape in a matrix
 
-figure
-mesh(Dy,Dw,shape2_matrix);
+figure()
+% Plotted on a graph data
+plot3(dsYear1.DayOfTheYear,dsYear1.DayOfTheWeek, dsYear1.GasConsumption, 'bo')
 hold on
-%Overlay of observations to our model
-plot3(dsYear1.DayOfTheYear, dsYear1.DayOfTheWeek , dsYear1.GasConsumption,'o');
+% Plotting on graphs identified model
+fun = @(a0,a1,b1,a2,b2,x) a0 + a1*cos(x*((pi)/365)) + b1*sin(x*((pi)/365)) + a2*cos(2*x*((pi)/365)) + b2*sin(2*x*((pi)/365));
+plot3(dsYear1.DayOfTheYear, dsYear1.DayOfTheWeek,fun(ThetaLS2(1),ThetaLS2(2),ThetaLS2(3),ThetaLS2(4),ThetaLS2(5),dsYear1.DayOfTheYear), 'm*');
 grid on
-title ('GAS CONSUMPTION IN ITALY (3D), in function of day of a Year and day of a week -- Year 1');
+title ('GAS CONSUMPTION IN ITALY (3D), in function of day of a Year and day of a week');
 xlabel('DayOfTheYear');
 ylabel('DayOfTheWeek');
 zlabel('GasConsumption');
-legend('second degree polynomial model' , 'data', 'Location', 'Northeast');
+legend( 'data','Second degree Sin/Cos model', 'Location', 'Northeast');
+
+
+% ARMONICA TERZO GRADO 
+Phi3= [ones(n,1), cos(((pi)/365)*dsYear1.DayOfTheYear), sin(((pi)/365)*dsYear1.DayOfTheYear) ...
+    , cos(((2*pi)/365)*dsYear1.DayOfTheYear), sin(((2*pi)/365)*dsYear1.DayOfTheYear) ... 
+    , cos(((3*pi)/365)*dsYear1.DayOfTheYear), sin(((3*pi)/365)*dsYear1.DayOfTheYear)]; 
+[ThetaLS3, std_thetaLS3] = lscov(Phi3, dsYear1.GasConsumption);
+
+% Variables that will be useful to us regarding the choice of
+% best model
+q3=length(ThetaLS3); %Number of parameters considered by the model in question
+%Estimated yield given our model
+y_hat3=Phi3*ThetaLS3;
+%Residual calculation
+epsilon3=dsYear1.GasConsumption-y_hat3;
+%SSR calculation
+SSR3=epsilon3'*epsilon3;
+
+
+figure()
+% Plotted on a graph data
+plot3(dsYear1.DayOfTheYear,dsYear1.DayOfTheWeek, dsYear1.GasConsumption, 'bo')
+hold on
+% Plotting on graphs identified model
+fun = @(a0,a1,b1,a2,b2,a3,b3,x) a0 + a1*cos(x*((pi)/365)) + b1*sin(x*((pi)/365)) + a2*cos(2*x*((pi)/365)) + b2*sin(2*x*((pi)/365)) + a3*cos(3*x*((pi)/365)) + b3*sin(3*x*((pi)/365));
+plot3(dsYear1.DayOfTheYear, dsYear1.DayOfTheWeek,fun(ThetaLS3(1),ThetaLS3(2),ThetaLS3(3),ThetaLS3(4),ThetaLS3(5),ThetaLS3(6),ThetaLS3(7),dsYear1.DayOfTheYear), 'm*');
+grid on
+title ('GAS CONSUMPTION IN ITALY (3D), in function of day of a Year and day of a week');
+xlabel('DayOfTheYear');
+ylabel('DayOfTheWeek');
+zlabel('GasConsumption');
+legend( 'data','Third degree Sin/Cos model', 'Location', 'Northeast');
+
+
+%% ARMONICA QUARTO GRADO
+Phi4= [ones(n,1), cos(((pi)/365)*dsYear1.DayOfTheYear), sin(((pi)/365)*dsYear1.DayOfTheYear) ...
+    , cos(((2*pi)/365)*dsYear1.DayOfTheYear), sin(((2*pi)/365)*dsYear1.DayOfTheYear) ... 
+    , cos(((3*pi)/365)*dsYear1.DayOfTheYear), sin(((3*pi)/365)*dsYear1.DayOfTheYear) ...
+    , cos(((4*pi)/365)*dsYear1.DayOfTheYear), sin(((4*pi)/365)*dsYear1.DayOfTheYear)]; 
+[ThetaLS4, std_thetaLS4] = lscov(Phi4, dsYear1.GasConsumption);
+
+% Variables that will be useful to us regarding the choice of
+% best model
+q4=length(ThetaLS4); %Number of parameters considered by the model in question
+%Estimated yield given our model
+y_hat4=Phi4*ThetaLS4;
+%Residual calculation
+epsilon4=dsYear1.GasConsumption-y_hat4;
+%SSR calculation
+SSR4=epsilon4'*epsilon4;
+
+
+figure()
+% Plotted on a graph data
+plot3(dsYear1.DayOfTheYear,dsYear1.DayOfTheWeek, dsYear1.GasConsumption, 'bo')
+hold on
+% Plotting on graphs identified model
+fun = @(a0,a1,b1,a2,b2,a3,b3,a4,b4,x) a0 + a1*cos(x*((pi)/365)) + b1*sin(x*((pi)/365)) + a2*cos(2*x*((pi)/365)) + b2*sin(2*x*((pi)/365)) + a3*cos(3*x*((pi)/365)) + b3*sin(3*x*((pi)/365)) + a4*cos(4*x*((pi)/365)) + b4*sin(4*x*((pi)/365));
+plot3(dsYear1.DayOfTheYear, dsYear1.DayOfTheWeek,fun(ThetaLS4(1),ThetaLS4(2),ThetaLS4(3),ThetaLS4(4),ThetaLS4(5),ThetaLS4(6),ThetaLS4(7),ThetaLS4(8),ThetaLS4(9),dsYear1.DayOfTheYear), 'm*');
+grid on
+title ('GAS CONSUMPTION IN ITALY (3D), in function of day of a Year and day of a week');
+xlabel('DayOfTheYear');
+ylabel('DayOfTheWeek');
+zlabel('GasConsumption');
+legend( 'data','Third degree Sin/Cos model', 'Location', 'Northeast');
 
 
 % Stopping code to show only the results
