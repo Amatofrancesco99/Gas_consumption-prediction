@@ -384,7 +384,6 @@ plot3(dsYear1.DayOfTheYear, dsYear1.DayOfTheWeek,fun3(ThetaLS3(1),ThetaLS3(2),Th
 legend('identification data','validation data', 'third degree armonic','Location','Northeast'); 
 
 
-
 % Stopping code to show only the results
 pause
 % Close all the figure shown before
