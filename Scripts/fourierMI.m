@@ -19,7 +19,7 @@ fprintf('MODEL IDENTIFICATION, USING FOURIER THEORY\n');
 
 % days of both years
 days = linspace(1,730,730);
-%%daysWeek = table2array(readtable('../Dataset/gasITAday.xlsx', 'Range', 'B2:B732'))';
+daysWeek = table2array(readtable('../Dataset/gasITAday.xlsx', 'Range', 'B2:B732'))';
 % gas consumption during both years
 gas_consumption = table2array(readtable('../Dataset/gasITAday.xlsx', 'Range', 'C2:C732'));
 
@@ -59,7 +59,7 @@ P1(2:end-1) = 2*P1(2:end-1);
 % Define the frequency domain f and plot the single-sided amplitude spectrum P1.
 % The amplitudes are not exactly at 0.7 and 1, as expected, because of the added 
 % noise. On average, longer signals produce better frequency approximations.
-f = Fs*(0:(L/2))/L;
+f = linspace(1,366,366);
 plot(f,P1); 
 grid on
 title('SPECTRUM OF THE GAS CONSUMPTION FUNCTION');
@@ -76,52 +76,105 @@ hold on
 % manually
 ampPeakIn0= 85.61;
 %Show only important peaks on plot shown before
-locsImpPeaks= locs(1:2);
-ampImpPeaks= amp(1:2);
+locsImpPeaks= [locs(1:3);locs(41);210;314];
+ampImpPeaks= [amp(1:3);amp(41);2.921;1.696];
 plot([0;locsImpPeaks],[ampPeakIn0;ampImpPeaks],'g*');
 legend('ORIGINAL SIGNAL SPECTRUM','IMPORTANT PEAKS')
 
 
-%% "REBUILD" ORIGINAL FUNCTION USING MOST IMPORTANT FREQUENCIES
+%% IDENTIFY MODEL 
 
-% Remember how Fourier series are built
-% If you don't remember, look at this link: https://en.wikipedia.org/wiki/Fourier_series
-freqs = (locs-1)/days(end); 
-signal_0=ampPeakIn0; 
-signal=signal_0;
-% Because important peaks are 4, as said in the "first observation" section
-% (with the one in 0 included)
- for n=1:length(locsImpPeaks)
-    %%if (n==3)
-         %%signal=signal+amp(n)*square(freqs(n)*daysWeek,0.285);
-    %%else
-         signal = signal+amp(n)*cos(2*pi*freqs(n)*days-pi/8);
-    %%end
-end
-figure(3)
-plot(smooth(signal),'LineWidth',2);
-% Added vertical lines to see better the different months gas consumption
-for i = 1:24
-       xline(i*30, 'm--');
-end
+% Useful variables
+dsYear1=readtable('../Dataset/gasITAday.xlsx', 'Range', 'A3:C367');
+dsYear2=readtable('../Dataset/gasITAday.xlsx', 'Range', 'A368:C732');
+
+% Change the coloumn's name in the different datasets
+dsYear1.Properties.VariableNames{1}='DayOfTheYear';
+dsYear1.Properties.VariableNames{2}='DayOfTheWeek';
+dsYear1.Properties.VariableNames{3}='GasConsumption';
+dsYear2.Properties.VariableNames{1}='DayOfTheYear';
+dsYear2.Properties.VariableNames{2}='DayOfTheWeek';
+dsYear2.Properties.VariableNames{3}='GasConsumption';
+
+n=length(dsYear1.GasConsumption); %Number of observations
+nVal=length(dsYear2.GasConsumption); % Number of observation (for validation)
+% Array containing all values of the days in a week, that we will consider
+daysOfTheWeek_grid=linspace(0,7,100); 
+% Array containing all values of the days in a year, that we will consider
+daysOfTheYear_grid=linspace(0,365,100); 
+% We get the matrices with the two coordinates
+[Dy, Dw]=meshgrid(daysOfTheYear_grid, daysOfTheWeek_grid);
+Dw_vec=Dw(:);
+Dy_vec=Dy(:);
+alpha=0.05; %fixed the level of significance
+
+
+%% First degree 
+Phi1= [ones(n,1), cos(((2*pi)/7)*linspace(1,365,365)'), sin(((2*pi)/7)*linspace(1,365,365)') ]; 
+[ThetaLS1, std_thetaLS1] = lscov(Phi1, dsYear1.GasConsumption);
+
+% Variables that will be useful to us regarding the choice of
+% best model
+q1=length(ThetaLS1); %Number of parameters considered by the model in question
+%Estimated yield given our model
+y_hat1=Phi1*ThetaLS1;
+%Residual calculation
+epsilon1=dsYear1.GasConsumption-y_hat1;
+%SSR calculation
+SSR1=epsilon1'*epsilon1;
+
+%Showing this model
+% We create an ad hoc Phi by inserting as values not the vectors of
+% observations, but vectors containing grid values
+Phi1_grid=[ones(length(Dy_vec),1), Dy_vec, Dw_vec]; 
+shape1=Phi1_grid*ThetaLS1; %shape creation
+shape1_matrix=reshape(shape1, size(Dy)); %Transform the shape in a matrix
+
+figure
+mesh(Dy,Dw,shape1_matrix);
 hold on
-plot(days,gas_consumption);
-title('GAS CONSUMPTION FUNCTION (IN ITALY)');
-xlabel('Days');
-ylabel('Consumption (millionM^3)');
-legend('Gas consumption prediction, using important frequencies','Real gas consumption trend');
+%Overlay of observations to our model
+plot3(dsYear1.DayOfTheYear, dsYear1.DayOfTheWeek , dsYear1.GasConsumption,'o');
+grid on
+title ('GAS CONSUMPTION IN ITALY (3D), in function of day of a Year and day of a week');
+xlabel('DayOfTheYear');
+ylabel('DayOfTheWeek');
+zlabel('GasConsumption');
+legend('first degree model' , 'data', 'Location', 'Northeast');
 
 
-%% MSE AND STANDARD DEVIATION OF FOURIER MODEL IDENTIFICATION
+%% Second degree
+Phi2= [ones(n,1), cos(((2*pi)/7)*linspace(1,365,365)'), sin(((2*pi)/7)*linspace(1,365,365)'), cos(((4*pi)/7)*linspace(1,365,365)'), sin(((4*pi)/7)*linspace(1,365,365)') ]; 
+[ThetaLS2, std_thetaLS2] = lscov(Phi2, dsYear1.GasConsumption);
 
-Residuals=(gas_consumption.'-signal);
-SSR_Fourier=0;
-for i = 1:length(Residuals)
-       SSR_Fourier=SSR_Fourier+Residuals(i).^2;
-end
-SSR_Fourier
-MSE_Fourier=SSR_Fourier/length(days);
-sd_Fourier=sqrt(MSE_Fourier)
+% Variables that will be useful to us regarding the choice of
+% best model
+q2=length(ThetaLS2); %Number of parameters considered by the model in question
+%Estimated yield given our model
+y_hat2=Phi2*ThetaLS2;
+%Residual calculation
+epsilon2=dsYear1.GasConsumption-y_hat2;
+%SSR calculation
+SSR2=epsilon2'*epsilon2;
+
+%Showing this model
+% We create an ad hoc Phi by inserting as values not the vectors of
+% observations, but vectors containing grid values
+Phi2_grid=[ones(length(Dy_vec),1), Dy_vec, Dw_vec, Dy_vec.^2, Dw_vec.^2 ]; 
+shape2=Phi2_grid*ThetaLS2; %shape creation
+shape2_matrix=reshape(shape2, size(Dy)); %Transform the shape in a matrix
+
+figure
+mesh(Dy,Dw,shape2_matrix);
+hold on
+%Overlay of observations to our model
+plot3(dsYear1.DayOfTheYear, dsYear1.DayOfTheWeek , dsYear1.GasConsumption,'o');
+grid on
+title ('GAS CONSUMPTION IN ITALY (3D), in function of day of a Year and day of a week -- Year 1');
+xlabel('DayOfTheYear');
+ylabel('DayOfTheWeek');
+zlabel('GasConsumption');
+legend('second degree polynomial model' , 'data', 'Location', 'Northeast');
 
 
 % Stopping code to show only the results
