@@ -60,10 +60,10 @@ P1(2:end-1) = 2*P1(2:end-1);
 % The amplitudes are not exactly at 0.7 and 1, as expected, because of the added 
 % noise. On average, longer signals produce better frequency approximations.
 f = linspace(1,366,366);
-plot(f,P1); 
+plot(f,P1,'m'); 
 grid on
-title('SPECTRUM OF THE GAS CONSUMPTION FUNCTION');
-xlabel('frequency (mHz)')
+title('SPECTRUM OF THE GAS CONSUMPTION FUNCTION -- 2 Years');
+xlabel('frequency')
 ylabel('FFT Gas Consumption')
 
 
@@ -78,7 +78,7 @@ ampPeakIn0= 85.61;
 %Show only important peaks on plot shown before
 locsImpPeaks= [locs(1:3);locs(41);210;314];
 ampImpPeaks= [amp(1:3);amp(41);2.921;1.696];
-plot([0;locsImpPeaks],[ampPeakIn0;ampImpPeaks],'g*');
+plot([0;locsImpPeaks],[ampPeakIn0;ampImpPeaks],'b*');
 legend('ORIGINAL SIGNAL SPECTRUM','IMPORTANT PEAKS')
 
 
@@ -138,7 +138,7 @@ title ('GAS CONSUMPTION IN ITALY (3D), in function of day of a Year and day of a
 xlabel('DayOfTheYear');
 ylabel('DayOfTheWeek');
 zlabel('GasConsumption');
-legend( 'data','First degree Sin/Cos model', 'Location', 'Northeast');
+legend( 'data','First degree harmonic model', 'Location', 'Northeast');
 
 
 % ARMONICA DI SECONDO GRADO
@@ -171,7 +171,7 @@ title ('GAS CONSUMPTION IN ITALY (3D), in function of day of a Year and day of a
 xlabel('DayOfTheYear');
 ylabel('DayOfTheWeek');
 zlabel('GasConsumption');
-legend( 'data','Second degree Sin/Cos model', 'Location', 'Northeast');
+legend( 'data','Second degree harmonic model', 'Location', 'Northeast');
 
 
 % ARMONICA TERZO GRADO 
@@ -206,7 +206,7 @@ title ('GAS CONSUMPTION IN ITALY (3D), in function of day of a Year and day of a
 xlabel('DayOfTheYear');
 ylabel('DayOfTheWeek');
 zlabel('GasConsumption');
-legend( 'data','Third degree Sin/Cos model', 'Location', 'Northeast');
+legend( 'data','Third degree harmonic model', 'Location', 'Northeast');
 
 
 % ARMONICA QUARTO GRADO
@@ -243,7 +243,7 @@ title ('GAS CONSUMPTION IN ITALY (3D), in function of day of a Year and day of a
 xlabel('DayOfTheYear');
 ylabel('DayOfTheWeek');
 zlabel('GasConsumption');
-legend( 'data','Fourh degree Sin/Cos model', 'Location', 'Northeast');
+legend( 'data','Fourh degree harmonic model', 'Location', 'Northeast');
 
 
 %% SSR (more complex model wins)
@@ -292,7 +292,7 @@ AIC4= ((2*q4)/n) + log(SSR4);
 
 % Choosing as the optimal model (of the single objective test), the one that 
 % minimizes the amount of merit between the different models considered we note that
-% for AIC, MDL & FPE, the better model is the fourth armonic.
+% for AIC, MDL & FPE, the better model is the fourth harmonic.
 
 
 %% CROSS-VALIDATION
@@ -381,7 +381,7 @@ hold on
 plot3(dsYear2.DayOfTheYear,dsYear2.DayOfTheWeek,dsYear2.GasConsumption,'g+');
 %Plotting best model for cross-validation (Third degree model)
 plot3(dsYear1.DayOfTheYear, dsYear1.DayOfTheWeek,fun3(ThetaLS3(1),ThetaLS3(2),ThetaLS3(3),ThetaLS3(4),ThetaLS3(5),ThetaLS3(6),ThetaLS3(7),ThetaLS3(8),ThetaLS3(9),ThetaLS3(10),ThetaLS3(11),ThetaLS3(12),ThetaLS3(13),dsYear1.DayOfTheYear, dsYear1.DayOfTheWeek), 'm*');
-legend('identification data','validation data', 'third degree armonic','Location','Northeast'); 
+legend('identification data','validation data', 'third degree harmonic model','Location','Northeast'); 
 
 
 % Stopping code to show only the results
