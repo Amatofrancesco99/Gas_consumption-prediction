@@ -5,7 +5,7 @@ The topic of this project is: **"Long-Term Time-Series forecasting, using model 
 
 Using a dataset we want to identify the model which better represent our data, to then create a function that predicts the gas consumption (in Italy) in a specific day of the year, and of the week. 
 
-To identify the best model that represent our time series function (gas consumption in Italy, during two different years) we've used: *polynomial regression*, *neural networks* and finally *Fourier*.
+To identify the best model that represent our time series function (gas consumption in Italy, during two different years) we've used: *polynomial regression*, *neural networks* and finally *harmonic regression*.
 
 ***
 
