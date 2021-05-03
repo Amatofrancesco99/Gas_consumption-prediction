@@ -18,6 +18,6 @@ Watch the *"live_script"* code, in the *"Scripts"* folder of this repository, if
 Here you can find the link to the online presentation (with Google presentation), of our Project:
 - https://docs.google.com/presentation/d/1zYLSI41E4u1VUiTPdPAUXHwIuH8_YJX_rXSlHct1qto
 
-You can also get the *"presentation_pdf"* in this repository, if you go to *"Presentation"* folder.
+You can also get the *"presentation.pptx"* in this repository, if you go to *"Presentation"* folder.
 
 ***
