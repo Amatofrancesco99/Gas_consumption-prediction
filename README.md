@@ -15,9 +15,9 @@ Watch the *"live_script"* code, in the *"Scripts"* folder of this repository, if
 *** 
 
 ## Presentation
-Here you can find the link to the online presentation (with Google presentation), of our Project:
-- https://docs.google.com/presentation/d/1zYLSI41E4u1VUiTPdPAUXHwIuH8_YJX_rXSlHct1qto
+Here you can find the project presentation, in different extensions (pdf or pptx):
+- https://github.com/filsky0599/Progetto-IMAD/tree/main/Presentation/FileExtension
 
-You can also get a local copy of the presentation, in a specific file extension (pdf or pptx), if you go to *"Presentation/FileExtension"* folder.
+We suggest you downloading *.pptx* file, because of video we putted in our presentation can't be available if you download the *.pdf* version.
 
 ***
