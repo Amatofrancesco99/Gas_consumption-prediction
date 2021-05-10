@@ -10,13 +10,12 @@ To identify the best model that represent our time series function (gas consumpt
 ***
 
 ## Script
-Watch the *"live_script"* code, in the *"Scripts"* folder of this repository, if you're interested in and you want more details (how we implemented it, using *Matlab* 🧐🥶)
+Watch the *"live_script"* code, in the [*"Scripts"* folder](https://github.com/filsky0599/Progetto-IMAD/tree/main/Scripts) of this repository, if you're interested in and you want more details (how we implemented it, using *Matlab* 🧐🥶)
 
 *** 
 
 ## Presentation
-Here you can find the project presentation, in different extensions (pdf or pptx):
-- https://github.com/filsky0599/Progetto-IMAD/tree/main/Presentation/FileExtension
+[Here](https://github.com/filsky0599/Progetto-IMAD/tree/main/Presentation/FileExtension) you can find the project presentation, in different extensions (pdf or pptx).
 
 We suggest you downloading *.pptx* file, because of video we putted in our presentation can't be available if you download the *.pdf* version.
 
