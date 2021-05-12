@@ -17,6 +17,6 @@ Watch the *"live_script"* code, in the [*"Scripts"* folder](https://github.com/f
 ## Presentation
 [Here](https://github.com/filsky0599/Progetto-IMAD/tree/main/Presentation/FileExtension) you can find the project presentation, in different extensions (pdf or pptx).
 
-We suggest you downloading *.pptx* file, because of video we putted in our presentation can't be available if you download the *.pdf* version.
+We suggest you downloading *.pptx* file, because 3D animation videos we putted in our presentation are not available if you download the *.pdf* version.
 
 ***
