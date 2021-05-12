@@ -10,7 +10,7 @@ To identify the best model that represents our time series function (gas consump
 ***
 
 ## Script
-Watch the *"live_script"* code, in the [*"Scripts"* folder](https://github.com/filsky0599/Progetto-IMAD/tree/main/Scripts) of this repository, if you're interested in and you want more details (how we implemented it, using *Matlab* 🧐🥶)
+Watch the *"live_script"* code, in the [*"Scripts"* folder](https://github.com/filsky0599/Progetto-IMAD/tree/main/Scripts) of this repository, if you're interested in and you want more details (how we implemented it, using *Matlab*)
 
 *** 
 
