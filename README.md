@@ -3,9 +3,10 @@
 ## Overview
 The topic of this project is: **"Long-Term Time-Series forecasting, using model identification theory"**. 
 
-Using a dataset we want to identify the model which represents our data in the better way. So we created a function that predicts the gas consumption (in Italy) in a specific day of the year, and of the week. 
+Starting from a dataset, which concerns *two years gas consumption trend in Italy in function of two parameters* (day of the year, day of the week), we want to identify the model which represents our data in the better way. 
+Once finded this model, we created a function that predicts the gas consumption once you insert the value of the parameters mentioned before.
 
-To identify the best model that represents our time series function (gas consumption in Italy, during two different years) we used: *polynomial regression*, *neural networks* and finally *harmonic regression*.
+In order to identify the best model that represents our time series process we used: *polynomial regression*, *neural networks* and finally *harmonic regression*.
 
 ***
 
