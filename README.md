@@ -11,12 +11,13 @@ In order to identify the best model that represents our time series process we u
 ***
 
 ## Script
-Watch the *"live_script"* code, in the [*"Scripts"* folder](https://github.com/filsky0599/Progetto-IMAD/tree/main/Scripts) of this repository, if you're interested in and you want more details (how we implemented it, using *Matlab*)
+If you're interested in how we solve model identification & prediction function, using *Matlab*, watch the *"live_script.mlx"* code. 
+You can find it at this [link](https://github.com/filsky0599/Progetto-IMAD/tree/main/Scripts).
 
 *** 
 
 ## Presentation
-[Here](https://github.com/filsky0599/Progetto-IMAD/tree/main/Presentation/FileExtension) you can find the project presentation, in different extensions (pdf or pptx).
+At this [link](https://github.com/filsky0599/Progetto-IMAD/tree/main/Presentation/FileExtension) you can find the project presentation, in different extensions (pdf or pptx).
 
 We suggest you downloading *.pptx* file, because 3D animation videos we putted in our presentation are not available if you download the *.pdf* version.
 
