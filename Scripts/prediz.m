@@ -1,6 +1,5 @@
 %% PREDICTION FUNCTION ONLY
 
-% prediction function
 function s_hat=prediz(dy,dw)
     x=dy;
     x2=dw;
