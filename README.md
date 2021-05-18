@@ -11,8 +11,9 @@ In order to identify the best model that represents our time series process we u
 ***
 
 ## Script
-If you're interested in how we solve model identification and prediction function, using *Matlab*, watch the *"live_script.mlx"* code. 
-You can find it at this [link](https://github.com/filsky0599/Progetto-IMAD/tree/main/Scripts).
+If you're interested in how we solve model identification, comparison between models, gas consumption prediction, and so on ( using *Matlab*), watch the *"live_script.mlx"* code. 
+You can find it at this [Folder](https://github.com/filsky0599/Progetto-IMAD/tree/main/Scripts).
+It is also available, at the same link, another file including solely the prediction function (for more details, see the *prediz.m* script).
 
 *** 
 
